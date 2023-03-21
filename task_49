@@ -1,0 +1,90 @@
+filename = 'test.txt'
+'''просмотр информации'''
+def show_data():
+    with open('test.txt', 'r', encoding='utf-8') as data:
+        return data.read()
+
+'''добавить новую информацию'''
+def new_data():
+    with open('test.txt', 'a', encoding='utf-8') as file:
+        file.write(input('введите данные: ') + '\n')
+
+'''поиск инфоромации'''
+def find_data():
+    with open('test.txt', 'r', encoding='utf-8') as file:
+        word = input()
+        for line in file:
+            if word in line:
+                text = line 
+                print(line)
+                return (text)
+        
+            
+'''изменить'''
+def change_data():
+    data = find_data()
+    new_str = input('Введите новую строку')
+    with open('test.txt', 'w', encoding='utf-8') as f2:
+        for line in range(len(data) - 1):
+            if line == data:
+                f2.write(f'{new_str}\n')
+            else: 
+                f2.write(f'{data[line]}\n')
+    print('Информация изменена')
+     
+
+'''удалить'''
+def delete_data(filename):
+    data = find_data(filename)
+    if len(data[0])==1:
+        delited(data[0][0], data[1],filename)
+    elif len(data[0]>1):
+        change = int(input('Введите номер удаляемой записи '))
+        while change not in [i for i in range(1, len(data[0]+1))]:
+            print("Такой записи в справочнике не существует")
+            change = int(input('Введите номер удаляемой записи '))
+        delited(int(data[0][change-1]), data[1], filename)
+
+def rewrited(text, data):
+    new_str = input('Введите новую строку')
+    with open('test.txt', 'w', encoding='utf-8') as f2:
+        for line in range(len(data) - 1):
+            if line == text:
+                f2.write(f'{new_str}\n')
+            else: 
+                f2.write(f'{data[line]}\n')
+    print('Информация изменена')
+
+def delited(strings, data, filename):    
+    with open(filename, 'w', encoding='utf-8') as f2:
+        for line in range(len(data)-1):
+            if line != strings:
+                f2.write(f'{data[line]}\n')
+            else: 
+                '' 
+        print('Информация удалена')
+
+
+while True:
+    mode = input('Выберите режим работы:\
+                \n 1.Просмотр информации\
+                \n 2.Добавить информацию\
+                \n 3.Поиск информации\
+                \n 4.Изменить информацию\
+                \n 5.Удалить запись\
+                \n')
+    
+    if mode == '1':
+        print(show_data())
+    elif mode == '2':
+        new_data()
+    elif mode == '3':
+        find_data()
+    elif mode == '4':
+        change_data()
+    elif mode == '5':
+        delete_data()    
+    elif mode == '0':
+        break
+    else:
+        print('no mode')
